@@ -1,57 +1,60 @@
-
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<title>FaunaLink — Simulador</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<style>body{margin:0;font-family:Arial}#map{height:100vh} .popup-img{width:260px;height:160px;object-fit:cover;border-radius:6px}</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Simulador — FaunaLink</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Tailwind CDN for convenience -->
+  <script src="libs/loaders/tailwind-loader.js" defer></script>
 </head>
 <body>
+  <header><h1>Simulador FaunaLink</h1></header>
+  <main class="container">
+    <section id="controls" class="card">
+      <h2>Controles</h2>
+      <input id="fileUpload" type="file" accept=".csv,.json"/>
+      <button id="loadSample">Carregar exemplo</button>
+    </section>
+
+    <section id="dashboard" class="card">
+      <h2>Dashboard</h2>
+      <canvas id="chartSightings" width="600" height="300"></canvas>
+      <div id="map" style="height:400px; margin-top:1rem;"></div>
+    </section>
+  </main>
+
+  <!-- Load libs: Chart.js, Leaflet, jsPDF, autoTable, Moment.js -->
+  <script src="libs/loaders/chartjs-loader.js"></script>
+  <script src="libs/loaders/leaflet-loader.js"></script>
+  <script src="libs/loaders/jspdf-loader.js"></script>
+  <script src="libs/loaders/moment-loader.js"></script>
+
+  <script src="js/dashboard.js"></script>
+  <script src="js/simulator.js"></script>
+
 <script>
-if(sessionStorage.getItem('faunalink_auth') !== '1'){
-  // Not authorized in demo gate
-  window.location.href = 'login.html';
-}
-</script>
-<div id="map"></div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-const ASSETS_BASE = 'assets/';
-const IMGS = {
-  onca: ASSETS_BASE + 'onca.jpg',
-  noturna: ASSETS_BASE + 'noturna.jpg',
-  praia: ASSETS_BASE + 'praia.jpg'
+// Safety: filter out points likely in the open ocean using bounding box (Brazil region)
+window.faunalink_ocean_filter = function(rows){
+  // rows: array of arrays where lat is index 4, lon index 5 (as strings)
+  const latMin = -35, latMax = 5, lonMin = -85, lonMax = -28;
+  return rows.filter(r=>{
+    const lat = parseFloat(r[4]), lon = parseFloat(r[5]);
+    if (isNaN(lat) || isNaN(lon)) return false;
+    return lat >= latMin && lat <= latMax && lon >= lonMin && lon <= lonMax;
+  });
 };
-// load tiles images as sample markers
-const extraImages = [];
-// push generated tiles if present (they are copied into assets)
-for(let i=1;i<=30;i++){
-  const name = 'FL_img_' + String(i).padStart(2,'0') + '.png';
-  extraImages.push(ASSETS_BASE + name);
-}
-const map = L.map('map').setView([-20.316, -40.313], 9);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:''}).addTo(map);
-
-// base marker examples
-const bases = [
-  {name:'Vitória', lat:-20.3160, lon:-40.3130, img:IMGS.onca},
-  {name:'Serra', lat:-20.1650, lon:-40.3080, img:IMGS.noturna},
-  {name:'Guarapari', lat:-20.6470, lon:-40.4995, img:IMGS.praia}
-];
-bases.forEach(b=>{
-  const m = L.marker([b.lat,b.lon]).addTo(map);
-  m.bindPopup('<b>'+b.name+'</b><br><img src="'+b.img+'" class="popup-img">');
+document.addEventListener('DOMContentLoaded', function(){
+  // Wrap dashboard.loadData to apply filter automatically if present
+  const origLoad = window.dashboard && window.dashboard.loadData;
+  if(origLoad){
+    window.dashboard.loadData = function(rows){
+      const filtered = window.faunalink_ocean_filter(rows);
+      return origLoad.call(this, filtered);
+    }
+  }
 });
-
-// add sample event markers using tiles
-for(let i=0;i<extraImages.length;i++){
-  const lat = -20.3 + (Math.random()-0.5)*1.2;
-  const lon = -40.4 + (Math.random()-0.5)*1.4;
-  const mk = L.circleMarker([lat,lon],{radius:8,color:'#ff7f0e',fill:true}).addTo(map);
-  mk.bindPopup('<div><img src="'+extraImages[i]+'" class="popup-img"><br>Evento simulado #' + (i+1) + '</div>');
-}
 </script>
+
 </body>
 </html>
