@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Admin — FaunaLink</title><link rel="stylesheet" href="css/style.css"></head>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin — FaunaLink</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
   <header><h1>Painel Admin — FaunaLink</h1></header>
   <main>
@@ -9,12 +14,14 @@
       <p>Integração prevista: Cloudflare Access (configurar em auth-cloudflare.js)</p>
       <button id="loginBtn">Login (simulado)</button>
     </section>
+
     <section id="admin-tools">
       <h2>Ferramentas</h2>
       <button id="generatePdf">Gerar PDF de relatório</button>
       <button id="downloadZip">Download do pacote</button>
     </section>
   </main>
+
   <script src="js/auth-cloudflare.js"></script>
   <script src="js/admin.js"></script>
 </body>
