@@ -1,60 +1,23 @@
 <!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Simulador — FaunaLink</title>
-  <link rel="stylesheet" href="css/style.css">
-  <!-- Tailwind CDN for convenience -->
-  <script src="libs/loaders/tailwind-loader.js" defer></script>
-</head>
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Simulador — FaunaLink</title><link rel="stylesheet" href="css/style.css"></head>
 <body>
   <header><h1>Simulador FaunaLink</h1></header>
-  <main class="container">
-    <section id="controls" class="card">
+  <main>
+    <section id="controls">
       <h2>Controles</h2>
       <input id="fileUpload" type="file" accept=".csv,.json"/>
       <button id="loadSample">Carregar exemplo</button>
     </section>
-
-    <section id="dashboard" class="card">
+    <section id="dashboard">
       <h2>Dashboard</h2>
       <canvas id="chartSightings" width="600" height="300"></canvas>
-      <div id="map" style="height:400px; margin-top:1rem;"></div>
+      <div id="map" style="height:500px;margin-top:1rem;"></div>
     </section>
   </main>
-
-  <!-- Load libs: Chart.js, Leaflet, jsPDF, autoTable, Moment.js -->
   <script src="libs/loaders/chartjs-loader.js"></script>
   <script src="libs/loaders/leaflet-loader.js"></script>
-  <script src="libs/loaders/jspdf-loader.js"></script>
-  <script src="libs/loaders/moment-loader.js"></script>
-
   <script src="js/dashboard.js"></script>
   <script src="js/simulator.js"></script>
-
-<script>
-// Safety: filter out points likely in the open ocean using bounding box (Brazil region)
-window.faunalink_ocean_filter = function(rows){
-  // rows: array of arrays where lat is index 4, lon index 5 (as strings)
-  const latMin = -35, latMax = 5, lonMin = -85, lonMax = -28;
-  return rows.filter(r=>{
-    const lat = parseFloat(r[4]), lon = parseFloat(r[5]);
-    if (isNaN(lat) || isNaN(lon)) return false;
-    return lat >= latMin && lat <= latMax && lon >= lonMin && lon <= lonMax;
-  });
-};
-document.addEventListener('DOMContentLoaded', function(){
-  // Wrap dashboard.loadData to apply filter automatically if present
-  const origLoad = window.dashboard && window.dashboard.loadData;
-  if(origLoad){
-    window.dashboard.loadData = function(rows){
-      const filtered = window.faunalink_ocean_filter(rows);
-      return origLoad.call(this, filtered);
-    }
-  }
-});
-</script>
-
 </body>
 </html>
