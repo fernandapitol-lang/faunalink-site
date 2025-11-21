@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Relatórios — FaunaLink</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header><h1>Relatórios Automáticos</h1></header>
+  <main>
+    <section>
+      <h2>Gerar PDF</h2>
+      <form id="reportForm">
+        <label>Período: <input type="date" id="from"/> — <input type="date" id="to"/></label>
+        <button type="button" id="runReport">Gerar</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="libs/loaders/jspdf-loader.js"></script>
+  <script src="js/pdf-generator.js"></script>
+</body>
+</html>

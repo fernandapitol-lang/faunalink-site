@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Simulador — FaunaLink</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Tailwind CDN for convenience -->
+  <script src="libs/loaders/tailwind-loader.js" defer></script>
+</head>
+<body>
+  <header><h1>Simulador FaunaLink</h1></header>
+  <main class="container">
+    <section id="controls" class="card">
+      <h2>Controles</h2>
+      <input id="fileUpload" type="file" accept=".csv,.json"/>
+      <button id="loadSample">Carregar exemplo</button>
+    </section>
+
+    <section id="dashboard" class="card">
+      <h2>Dashboard</h2>
+      <canvas id="chartSightings" width="600" height="300"></canvas>
+      <div id="map" style="height:400px; margin-top:1rem;"></div>
+    </section>
+  </main>
+
+  <!-- Load libs: Chart.js, Leaflet, jsPDF, autoTable, Moment.js -->
+  <script src="libs/loaders/chartjs-loader.js"></script>
+  <script src="libs/loaders/leaflet-loader.js"></script>
+  <script src="libs/loaders/jspdf-loader.js"></script>
+  <script src="libs/loaders/moment-loader.js"></script>
+
+  <script src="js/dashboard.js"></script>
+  <script src="js/simulator.js"></script>
+</body>
+</html>

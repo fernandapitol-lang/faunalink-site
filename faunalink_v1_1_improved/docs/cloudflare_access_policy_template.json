@@ -1,0 +1,9 @@
+{
+  "application": "faunalink-admin",
+  "rules": [
+    {
+      "action": "allow",
+      "email": ["seu-email@exemplo.com"]
+    }
+  ]
+}

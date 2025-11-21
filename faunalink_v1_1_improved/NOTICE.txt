@@ -1,0 +1,4 @@
+AVISO: Este release contém *placeholders* locais para bibliotecas de terceiros (libs/vendor).
+Por limitações do ambiente, as versões minificadas reais (Chart.js, Leaflet, jsPDF, autoTable, Moment.js)
+não foram baixadas. O projeto carrega as bibliotecas via CDN por padrão usando os loaders em libs/loaders/.
+Para um pacote 100% offline, substitua os arquivos em libs/vendor/ por versões oficiais minificadas.

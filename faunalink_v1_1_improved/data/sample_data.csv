@@ -1,0 +1,6 @@
+id,timestamp,species,observer,lat,lon,notes
+1,2025-11-01T08:12:00Z,Macaco-prego,Ana,-22.9068,-43.1729,Observado
+2,2025-11-02T09:30:00Z,Tucano,Bruno,-3.1019,-60.0259,Voando
+3,2025-11-03T10:45:00Z,Onça-pintada,Carla,-12.9714,-38.5014,Pegadas
+4,2025-11-04T11:00:00Z,Capivara,Daniel,-23.5505,-46.6333,Grupo
+5,2025-11-05T07:22:00Z,Macaco-prego,Eduardo,-15.7801,-47.9292,Proximo a estrada
