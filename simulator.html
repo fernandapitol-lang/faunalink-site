@@ -1,0 +1,57 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>FaunaLink — Simulador</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>body{margin:0;font-family:Arial}#map{height:100vh} .popup-img{width:260px;height:160px;object-fit:cover;border-radius:6px}</style>
+</head>
+<body>
+<script>
+if(sessionStorage.getItem('faunalink_auth') !== '1'){
+  // Not authorized in demo gate
+  window.location.href = 'login.html';
+}
+</script>
+<div id="map"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const ASSETS_BASE = 'assets/';
+const IMGS = {
+  onca: ASSETS_BASE + 'onca.jpg',
+  noturna: ASSETS_BASE + 'noturna.jpg',
+  praia: ASSETS_BASE + 'praia.jpg'
+};
+// load tiles images as sample markers
+const extraImages = [];
+// push generated tiles if present (they are copied into assets)
+for(let i=1;i<=30;i++){
+  const name = 'FL_img_' + String(i).padStart(2,'0') + '.png';
+  extraImages.push(ASSETS_BASE + name);
+}
+const map = L.map('map').setView([-20.316, -40.313], 9);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:''}).addTo(map);
+
+// base marker examples
+const bases = [
+  {name:'Vitória', lat:-20.3160, lon:-40.3130, img:IMGS.onca},
+  {name:'Serra', lat:-20.1650, lon:-40.3080, img:IMGS.noturna},
+  {name:'Guarapari', lat:-20.6470, lon:-40.4995, img:IMGS.praia}
+];
+bases.forEach(b=>{
+  const m = L.marker([b.lat,b.lon]).addTo(map);
+  m.bindPopup('<b>'+b.name+'</b><br><img src="'+b.img+'" class="popup-img">');
+});
+
+// add sample event markers using tiles
+for(let i=0;i<extraImages.length;i++){
+  const lat = -20.3 + (Math.random()-0.5)*1.2;
+  const lon = -40.4 + (Math.random()-0.5)*1.4;
+  const mk = L.circleMarker([lat,lon],{radius:8,color:'#ff7f0e',fill:true}).addTo(map);
+  mk.bindPopup('<div><img src="'+extraImages[i]+'" class="popup-img"><br>Evento simulado #' + (i+1) + '</div>');
+}
+</script>
+</body>
+</html>
