@@ -1,2 +1,0 @@
-
-(function(){ var cdn='https://cdn.jsdelivr.net/npm/moment@2.29.4/min/moment.min.js'; var s=document.createElement('script'); s.src=cdn; s.onload=function(){console.log('Moment loaded')} ; s.onerror=function(){console.warn('Moment CDN failed')}; document.head.appendChild(s); })();
