@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Simulador Avançado — FaunaLink</title><link rel="stylesheet" href="css/style.css"></head>
+<body>
+  <header class="header"><h1>FaunaLink — Simulador Avançado</h1></header>
+  <div class="container">
+    <aside class="sidebar card">
+      <h2>Controles</h2>
+      <div class="small">Área de teste: Espírito Santo (Vitória)</div>
+      <div class="controls-row" style="margin-top:.5rem">
+        <button id="btnCenterES">Centralizar ES</button>
+        <button id="btnToggleBases">Mostrar/ocultar bases</button>
+      </div>
+      <hr/>
+      <h3>Drone</h3>
+      <div class="small">Status: <span id="droneStatus">Parado</span></div>
+      <div class="controls-row" style="margin-top:.5rem">
+        <button id="startDrone">Iniciar Drone</button><button id="stopDrone">Parar Drone</button>
+      </div>
+      <hr/>
+      <h3>Filtros</h3>
+      <label><input type="checkbox" id="chkSensors" checked/> Sensores</label><br/>
+      <label><input type="checkbox" id="chkObservations" checked/> Observações</label>
+    </aside>
+    <section class="content">
+      <div class="card">
+        <h2>Dashboard</h2>
+        <canvas id="chartSightings" width="800" height="200"></canvas>
+      </div>
+      <div class="card">
+        <div id="map" class="map-full"></div>
+      </div>
+    </section>
+  </div>
+  <script src="libs/loaders/leaflet-loader.js"></script>
+  <script src="libs/loaders/chartjs-loader.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/advanced.js"></script>
+</body>
+</html>

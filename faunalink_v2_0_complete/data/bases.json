@@ -1,0 +1,29 @@
+[
+  {
+    "id": "base_vitoria",
+    "name": "Base de Fiscalização Vitória",
+    "lat": -20.3155,
+    "lon": -40.3128,
+    "type": "terrestre",
+    "team": "IBAMA",
+    "hours": "08:00-18:00"
+  },
+  {
+    "id": "base_guarapari",
+    "name": "Base Guarapari",
+    "lat": -20.6558,
+    "lon": -40.4749,
+    "type": "maritima",
+    "team": "PM Ambiental",
+    "hours": "24h"
+  },
+  {
+    "id": "base_vila_velha",
+    "name": "Base Vila Velha",
+    "lat": -20.3296,
+    "lon": -40.2925,
+    "type": "terrestre",
+    "team": "EPA",
+    "hours": "08:00-17:00"
+  }
+]
