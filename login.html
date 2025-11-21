@@ -1,0 +1,39 @@
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>FaunaLink — Login</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f7f6;color:#072a18;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+.card{background:#fff;padding:24px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.08);width:360px}
+h2{margin:0 0 12px 0;color:#0b4730}
+input{width:100%;padding:10px;margin-top:8px;border-radius:6px;border:1px solid #ccc}
+button{margin-top:12px;padding:10px;border-radius:8px;border:none;background:#2e8b57;color:#fff;cursor:pointer}
+.note{font-size:13px;color:#445;padding-top:8px}
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>FaunaLink — Acesso</h2>
+  <p>Insira a senha de demonstração para acessar o simulador (modo de apresentação).</p>
+  <input id="pw" type="password" placeholder="Senha">
+  <button onclick="doLogin()">Entrar</button>
+  <div class="note">Dica: solicite a senha ao apresentador.</div>
+</div>
+<script>
+function doLogin(){
+  const p = document.getElementById('pw').value;
+  // default demo password: faunalink2025
+  if(p === 'faunalink2025'){
+    // store a session flag
+    sessionStorage.setItem('faunalink_auth','1');
+    window.location.href = 'simulator.html';
+  } else {
+    alert('Senha incorreta. Peça a senha ao organizador.');
+  }
+}
+</script>
+</body>
+</html>
